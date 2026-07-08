@@ -1,18 +1,20 @@
 "use client";
 
-
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useState } from "react";
 
-export default function Navbar() {
+function scrollToContact() {
+  const el = document.getElementById("contact");
+  el?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
-    const [menuOpen, setMenuOpen] = useState(false);
-  
+export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <>
-    <header className="fixed left-0 top-0 z-[100] w-full px-5 py-5 mix-blend-difference md:px-10 md:py-7">
+      <header className="fixed left-0 top-0 z-[100] w-full px-5 py-5 mix-blend-difference md:px-10 md:py-7">
         <div className="flex items-center justify-between text-white">
           <a
             href="#"
@@ -22,22 +24,23 @@ export default function Navbar() {
           </a>
 
           <div className="hidden items-center gap-10 text-[11px] font-semibold uppercase tracking-[0.12em] md:flex">
-            <a
-              href="#work"
-              className="transition-opacity hover:opacity-50"
-            >
+            <a href="#work" className="transition-opacity hover:opacity-50">
               Work
             </a>
 
-            <a
-              href="#about"
-              className="transition-opacity hover:opacity-50"
-            >
+            <a href="#about" className="transition-opacity hover:opacity-50">
               About
             </a>
 
+            {/* Just scrolls to the #contact section. Once it comes into view,
+                HomePage's own ScrollTrigger opens the ContactOverlay — this
+                link doesn't need to know about that at all. */}
             <a
               href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToContact();
+              }}
               className="transition-opacity hover:opacity-50"
             >
               Contact
@@ -87,7 +90,16 @@ export default function Navbar() {
                   <motion.a
                     key={item}
                     href={`#${item.toLowerCase()}`}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={(e) => {
+                      setMenuOpen(false);
+
+                      if (item === "Contact") {
+                        e.preventDefault();
+                        // let the fullscreen menu finish closing first,
+                        // then scroll to the contact section behind it
+                        setTimeout(scrollToContact, 400);
+                      }
+                    }}
                     initial={{
                       opacity: 0,
                       y: 80,

@@ -1399,7 +1399,6 @@ function MarqueeRow({
     </div>
   );
 }
-reducedMotion
 /* =========================================
    SUB-COMPONENT: Project card
    ========================================= */

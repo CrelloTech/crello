@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Hero from "@/components/Hero";
 import gsap from "gsap";
+import ContactOverlay from "@/components/contact/ContactOverlay";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowUpRight,
@@ -229,6 +230,8 @@ export default function HomePage() {
 
   const expertiseRef = useRef<HTMLElement>(null);
 
+  const gatewayRef = useRef<HTMLDivElement>(null);
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const reducedMotion = usereducedMotion();
@@ -312,6 +315,7 @@ export default function HomePage() {
         );
       });
 
+
       gsap.to(".floating-orb", {
         y: -100,
         x: 50,
@@ -333,6 +337,12 @@ export default function HomePage() {
           end: "bottom top",
           scrub: 1,
         },
+      });
+      ScrollTrigger.create({
+        trigger: contactRef.current,
+        start: "top center",
+        once: true,
+        onEnter: () => setContactOpen(true),
       });
     }, pageRef);
 
@@ -941,51 +951,13 @@ export default function HomePage() {
           10. CONTACT / CTA SECTION
       ===================================================== */}
 
-      <section
-        id="contact"
-        className="relative overflow-hidden bg-[#ff5c35] px-5 py-24 text-white md:px-10 md:py-36 lg:px-14 lg:py-44"
-      >
-        <div className="absolute -right-[10vw] -top-[15vw] h-[50vw] w-[50vw] rounded-full border-[1px] border-white/20" />
-        <div className="absolute -right-[2vw] -top-[7vw] h-[34vw] w-[34vw] rounded-full border-[1px] border-white/20" />
+      <section id="contact">
 
-        <div className="relative z-10 mx-auto max-w-[1600px]">
-          <div className="reveal-up">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
-              Have an idea?
-            </p>
 
-            <h2 className="mt-8 max-w-6xl text-[15vw] font-medium leading-[0.78] tracking-[-0.08em] md:text-[11vw] lg:text-[9vw]">
-              Let&apos;s make
-              <br />
-              it real.
-            </h2>
-          </div>
+        <ContactOverlay
+        />
 
-          <div className="mt-16 grid gap-10 border-t border-white/30 pt-10 lg:grid-cols-12">
-            <div className="lg:col-span-6">
-              <p className="max-w-lg text-lg leading-relaxed text-white/80 md:text-xl">
-                Tell us what you&apos;re building, what&apos;s slowing you down,
-                or where you want to go next. We&apos;ll help shape the right
-                path forward.
-              </p>
-            </div>
-
-            <div className="flex lg:col-span-6 lg:justify-end">
-              <a
-                href="mailto:hello@crello.com"
-                className="group flex items-center gap-5 rounded-full bg-[#111] py-2 pl-7 pr-2 text-xs font-bold uppercase tracking-[0.14em] text-white"
-              >
-                Start a conversation
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-black transition-transform duration-300 group-hover:rotate-45">
-                  <ArrowUpRight size={20} />
-                </span>
-              </a>
-            </div>
-          </div>
-        </div>
       </section>
-
-
     </main>
   );
 }
