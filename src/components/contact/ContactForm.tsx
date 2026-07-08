@@ -49,13 +49,35 @@ export default function ContactForm() {
         setStatus("loading");
 
         try {
-            await new Promise((resolve) => setTimeout(resolve, 1200));
+
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: data.get("name"),
+                    email: data.get("email"),
+                    phone: data.get("phone"),
+                    company: data.get("company"),
+                    message: data.get("message"),
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed");
+            }
+
             setStatus("success");
             form.reset();
+
         } catch {
             setStatus("error");
         }
     };
+
+
+
 
     if (status === "success") {
         return (
