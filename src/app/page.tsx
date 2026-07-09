@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Hero from "@/components/Hero";
 import gsap from "gsap";
 import ContactOverlay from "@/components/contact/ContactOverlay";
+import ProcessSection from "@/components/ProcessSection";
+import Faq from "@/components/Faq";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowUpRight,
@@ -165,28 +167,60 @@ const testimonials: Testimonial[] = [
 const STACK_ROWS = [
   {
     label: "FRONTEND",
-    items: ["React.js","Next.js","TypeScript","JavaScript","Tailwind CSS","Redux","Framer Motion","GSAP",],
+    items: ["React.js", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Redux", "Framer Motion", "GSAP",],
     dir: 1,
   },
   {
     label: "BACKEND",
-    items: ["Node.js","Express.js","REST APIs","Socket.IO","API Integration","Data Pipeline","Web Scraping","Python",],
+    items: ["Node.js", "Express.js", "REST APIs", "Socket.IO", "API Integration", "Data Pipeline", "Web Scraping", "Python",],
     dir: -1,
   },
   {
     label: "DATA",
-    items: ["MongoDB","MySQL","Redis","Firestore","SQL"],
+    items: ["MongoDB", "MySQL", "Redis", "Firestore", "SQL"],
     dir: 1,
   },
   {
     label: "AI & AUTOMATION",
-    items: ["OpenAI API","Gemini API","Groq API","LLM Integration","Prompt Engineering","Intelligent Automation",],
+    items: ["OpenAI API", "Gemini API", "Groq API", "LLM Integration", "Prompt Engineering", "Intelligent Automation",],
     dir: -1,
   },
   {
     label: "CLOUD & DEVOPS",
-    items: ["AWS EC2","Docker","Docker Compose","Jenkins","CI/CD","Nginx","Linux","Ubuntu","Prometheus","Grafana","Firebase","SSL",],
+    items: ["AWS EC2", "Docker", "Docker Compose", "Jenkins", "CI/CD", "Nginx", "Linux", "Ubuntu", "Prometheus", "Grafana", "Firebase", "SSL",],
     dir: 1,
+  },
+];
+const PROCESS_STEPS = [
+  {
+    n: "01",
+    title: "Discover",
+    desc: "Understand the business, users, challenges, goals, and opportunities.",
+  },
+  {
+    n: "02",
+    title: "Define",
+    desc: "Create a focused strategy, technical direction, and execution roadmap.",
+  },
+  {
+    n: "03",
+    title: "Design",
+    desc: "Build intuitive experiences and clear digital interactions.",
+  },
+  {
+    n: "04",
+    title: "Develop",
+    desc: "Engineer secure, scalable, and maintainable solutions.",
+  },
+  {
+    n: "05",
+    title: "Launch",
+    desc: "Deploy, test, optimize, and prepare for real-world usage.",
+  },
+  {
+    n: "06",
+    title: "Evolve",
+    desc: "Measure, improve, automate, and scale continuously.",
   },
 ];
 
@@ -226,7 +260,11 @@ export default function HomePage() {
   const pageRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLElement>(null);
   const aboutRef = useRef<HTMLElement>(null);
-  const servicesRef = useRef<HTMLElement>(null); // ADD THIS
+  const servicesRef = useRef<HTMLElement>(null);
+  const workRef = useRef<HTMLElement>(null);
+
+
+
 
   const expertiseRef = useRef<HTMLElement>(null);
 
@@ -235,6 +273,9 @@ export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const reducedMotion = usereducedMotion();
+  const contactRef = useRef<HTMLElement>(null);
+  const [contactOpen, setContactOpen] = useState(false);
+
 
 
   /* =======================================================
@@ -293,6 +334,24 @@ export default function HomePage() {
             endTrigger: servicesRef.current,
             end: "top 35%",
 
+            scrub: 1.5,
+          },
+        }
+      );
+
+      // SMOOTH BLACK -> WHITE BEFORE PROJECTS
+      gsap.fromTo(
+        pageRef.current,
+        {
+          backgroundColor: "#000000",
+        },
+        {
+          backgroundColor: "#ffffff",
+          ease: "none",
+          scrollTrigger: {
+            trigger: workRef.current,
+            start: "top 100%",
+            end: "top 35%",
             scrub: 1.5,
           },
         }
@@ -542,15 +601,15 @@ export default function HomePage() {
       <section className="px-5 py-24 md:px-10 md:py-36 lg:px-14 lg:py-44">
         <div className="mx-auto max-w-[1600px]">
           <div className="grid gap-12 lg:grid-cols-12">
-            <div className="reveal-up lg:col-span-3">
+            <div className="reveal-up lg:col-span-3 text-white">
               <SectionLabel number="03">Why Crello</SectionLabel>
             </div>
 
             <div className="lg:col-span-9">
-              <h2 className="reveal-up max-w-5xl text-[11vw] font-medium leading-[0.93] tracking-[-0.065em] md:text-[7vw] lg:text-[5.5vw]">
+              <h2 className="text-white/40 reveal-up max-w-5xl text-[11vw] font-medium leading-[0.93] tracking-[-0.065em] md:text-[7vw] lg:text-[5.5vw]">
                 Less noise.
                 <br />
-                <span className="text-[#aaa69e]">More progress.</span>
+                <span className="text-white/90">More progress.</span>
               </h2>
 
               <div className="mt-20 grid gap-px overflow-hidden rounded-3xl bg-black/10 md:grid-cols-2">
@@ -607,11 +666,9 @@ export default function HomePage() {
     06. TECHNOLOGY / EXPERTISE AREA
 ===================================================== */}
 
-      {/* =====================================================
-    06. TECHNOLOGY / EXPERTISE AREA
-===================================================== */}
 
-      <section className="relative overflow-hidden px-6 py-28 md:px-10 md:py-40">
+
+      <section className="relative overflow-hidden px-6 py-10 md:px-10 md:py-40">
         <p
           data-reveal
           className="mb-8 text-xs uppercase tracking-[0.25em] text-[#A3A3A3]"
@@ -621,9 +678,11 @@ export default function HomePage() {
 
         <h2
           data-reveal
-          className="mb-16 max-w-4xl text-[clamp(2.25rem,6vw,4.5rem)] font-semibold uppercase leading-[1.02] tracking-tight"
+          className="mb-16 max-w-6xl text-[clamp(2.25rem,6vw,4.5rem)] font-semibold uppercase leading-[1.02] tracking-tight text-white/90"
         >
-          Technology is the tool. Impact is the outcome.
+          Technology is the tool.
+          <br />
+          Impact is the outcome.
         </h2>
 
         <div className="flex flex-col gap-6">
@@ -643,7 +702,7 @@ export default function HomePage() {
                 className="relative overflow-hidden border-y border-white/10 py-6"
               >
                 {/* Row Label */}
-                <div className="mb-4 px-1 text-[10px] uppercase tracking-[0.2em] text-[#A3A3A3]">
+                <div className="mb-4 px-1 text-[10px] uppercase tracking-[0.2em] text-orange-400">
                   {row.label}
                 </div>
 
@@ -690,82 +749,7 @@ export default function HomePage() {
           07. PROCESS / WORKING APPROACH
       ===================================================== */}
 
-      <section
-        id="process"
-        className="px-5 py-24 md:px-10 md:py-36 lg:px-14 lg:py-44"
-      >
-        <div className="mx-auto max-w-[1600px]">
-          <div className="grid gap-12 lg:grid-cols-12">
-            <div className="reveal-up lg:col-span-3">
-              <SectionLabel number="05">How we work</SectionLabel>
-            </div>
-
-            <div className="lg:col-span-9">
-              <h2 className="reveal-up max-w-5xl text-[11vw] font-medium leading-[0.93] tracking-[-0.065em] md:text-[7vw] lg:text-[5.5vw]">
-                Clear process.
-                <br />
-                <span className="text-[#aaa69e]">Better outcomes.</span>
-              </h2>
-
-              <div className="mt-20">
-                {[
-                  {
-                    number: "01",
-                    title: "Discover",
-                    text: "We understand the business, users, constraints, opportunities and definition of success.",
-                  },
-                  {
-                    number: "02",
-                    title: "Define",
-                    text: "We shape the product direction, architecture, priorities, roadmap and delivery plan.",
-                  },
-                  {
-                    number: "03",
-                    title: "Build",
-                    text: "Design and engineering move together through focused, transparent development cycles.",
-                  },
-                  {
-                    number: "04",
-                    title: "Launch",
-                    text: "We test, optimize, deploy and prepare the product for confident real-world use.",
-                  },
-                  {
-                    number: "05",
-                    title: "Scale",
-                    text: "We improve, automate and evolve the solution as the business and user needs grow.",
-                  },
-                ].map((step) => (
-                  <div
-                    key={step.number}
-                    className="reveal-up group grid gap-5 border-t border-black/15 py-8 md:grid-cols-12 md:items-start md:py-10"
-                  >
-                    <div className="text-xs text-[#ff5c35] md:col-span-1">
-                      {step.number}
-                    </div>
-
-                    <h3 className="text-3xl font-medium tracking-[-0.045em] md:col-span-5 md:text-5xl">
-                      {step.title}
-                    </h3>
-
-                    <p className="max-w-md leading-relaxed text-black/55 md:col-span-5">
-                      {step.text}
-                    </p>
-
-                    <div className="flex justify-end md:col-span-1">
-                      <ArrowUpRight
-                        size={20}
-                        className="transition-transform duration-300 group-hover:rotate-45"
-                      />
-                    </div>
-                  </div>
-                ))}
-
-                <div className="border-t border-black/15" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ProcessSection />
 
       {/* =====================================================
           08. PORTFOLIO / PROJECTS SECTION
@@ -773,7 +757,8 @@ export default function HomePage() {
 
       <section
         id="work"
-        className="bg-[#111111] px-5 py-24 text-white md:px-10 md:py-36 lg:px-14 lg:py-44"
+        ref={workRef}
+        className="px-5 py-24 text-black md:px-10 md:py-36 lg:px-14 lg:py-44"
       >
         <div className="mx-auto max-w-[1600px]">
           <div className="grid gap-12 lg:grid-cols-12">
@@ -785,7 +770,9 @@ export default function HomePage() {
               <h2 className="reveal-up max-w-5xl text-[12vw] font-medium leading-[0.9] tracking-[-0.07em] md:text-[7vw] lg:text-[5.5vw]">
                 Work with
                 <br />
-                <span className="text-white/30">a purpose.</span>
+                <span className="text-black/30">
+                  a purpose.
+                </span>
               </h2>
             </div>
           </div>
@@ -824,8 +811,11 @@ export default function HomePage() {
                     : "lg:col-span-4 lg:col-start-1 lg:row-start-1"
                     }`}
                 >
-                  <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.18em] text-white/45">
-                    <span className="text-[#ff5c35]">{project.number}</span>
+                  <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.18em] text-black/45">
+                    <span className="text-[#ff5c35]">
+                      {project.number}
+                    </span>
+
                     {project.category}
                   </div>
 
@@ -852,15 +842,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="reveal-up mt-28 flex justify-center">
-            <button className="group flex h-40 w-40 flex-col items-center justify-center rounded-full bg-[#ff5c35] text-center text-xs font-bold uppercase tracking-[0.14em] transition-transform duration-500 hover:scale-110 md:h-48 md:w-48">
-              View all work
-              <ArrowUpRight
-                size={20}
-                className="mt-3 transition-transform group-hover:rotate-45"
-              />
-            </button>
-          </div>
+
         </div>
       </section>
 
@@ -947,16 +929,14 @@ export default function HomePage() {
         </div>
       </section>
 
+      <Faq />
+
       {/* =====================================================
           10. CONTACT / CTA SECTION
       ===================================================== */}
 
       <section id="contact">
-
-
-        <ContactOverlay
-        />
-
+        <ContactOverlay />
       </section>
     </main>
   );
