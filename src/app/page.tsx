@@ -33,6 +33,8 @@ import {
   MoveRight,
   Circle,
 } from "lucide-react";
+import jewellers from "../../public/jewellers.png";
+import returntreasure from "../../public/returntreasure.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,6 +56,8 @@ type Project = {
   description: string;
   image: string;
   tags: string[];
+  liveUrl?: string;
+  githubUrl?: string;
 };
 
 type Testimonial = {
@@ -119,8 +123,9 @@ const projects: Project[] = [
     description:
       "An intelligent expense platform turning everyday financial activity into clear, actionable insight.",
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=85",
+      " https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=85",
     tags: ["AI", "Product", "Cloud"],
+    liveUrl: "https://nidhibook.vercel.app",
   },
   {
     number: "02",
@@ -131,6 +136,7 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=1600&q=85",
     tags: ["Next.js", "AI", "Automation"],
+    liveUrl: "https://mailer-three-blue.vercel.app/",
   },
   {
     number: "03",
@@ -141,6 +147,36 @@ const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1600&q=85",
     tags: ["Enterprise", "OCR", "Analytics"],
+    liveUrl: "https://corpspend.vercel.app",
+  }, {
+    number: "04",
+    category: "E-COMMERCE / KIDS",
+    title: "ReturnTreasure",
+    description:
+      "A modern e-commerce platform offering a curated collection of premium toys, accessories, and essentials for children.",
+    image: "/returntreasure.png",
+    tags: ["E-Commerce", "Kids", "Shopping"],
+    liveUrl: "https://returntreasure.in",
+  }, {
+    number: "05",
+    category: "BUSINESS / ERP",
+    title: "Prusty Jewellers",
+    description:
+      "A comprehensive jewellery billing management system featuring GST invoicing, customer management, vendor tracking, and secure business operations.",
+    image: "/jewellers.png",
+    tags: ["Billing", "GST", "ERP"],
+    liveUrl: "https://prustyjeweller.redirectme.net",
+  },
+  {
+    number: "06",
+    category: "BEAUTY / BRANDING",
+    title: "CurlCanvas",
+    description:
+      "A premium salon marketing website designed to showcase beauty services, strengthen brand identity, and generate customer enquiries.",
+    image:
+      "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=1600&q=85",
+    tags: ["Marketing", "Beauty", "Branding"],
+    liveUrl: "https://curl-canvas.vercel.app",
   },
 ];
 
@@ -754,7 +790,7 @@ export default function HomePage() {
       {/* =====================================================
           08. PORTFOLIO / PROJECTS SECTION
       ===================================================== */}
-
+      {/* 
       <section
         id="work"
         ref={workRef}
@@ -845,7 +881,104 @@ export default function HomePage() {
 
         </div>
       </section>
+ */}
 
+      {/* =====================================================
+          08. PORTFOLIO / PROJECTS SECTION
+      ===================================================== */}
+
+      <section
+        id="work"
+        ref={workRef}
+        className="px-5 py-24 text-black md:px-10 md:py-36 lg:px-14 lg:py-44"
+      >
+        <div className="mx-auto max-w-[1600px]">
+          <div className="grid gap-12 lg:grid-cols-12">
+            <div className="reveal-up lg:col-span-3">
+              <SectionLabel number="06">Selected work</SectionLabel>
+            </div>
+
+            <div className="lg:col-span-9">
+              <h2 className="reveal-up max-w-5xl text-[12vw] font-medium leading-[0.9] tracking-[-0.07em] md:text-[7vw] lg:text-[5.5vw]">
+                Work with
+                <br />
+                <span className="text-black/30">a purpose.</span>
+              </h2>
+            </div>
+          </div>
+
+          <div className="mt-16 space-y-16 md:mt-28 md:space-y-32 lg:space-y-40">
+            {projects.map((project, index) => (
+              <article
+                key={project.title}
+                className={`group grid gap-6 md:gap-8 lg:grid-cols-12 ${index % 2 !== 0 ? "lg:items-end" : ""
+                  }`}
+              >
+                <div
+                  className={`reveal-up ${index % 2 === 0
+                    ? "lg:col-span-8"
+                    : "lg:col-span-8 lg:col-start-5"
+                    }`}
+                >
+                  <div className="relative h-[42vh] min-h-[280px] overflow-hidden rounded-[1.25rem] sm:h-[50vh] sm:min-h-[360px] md:h-[60vh] md:rounded-[1.5rem] lg:h-[72vh]">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="project-image h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                    />
+
+                    <div className="absolute inset-0 bg-black/15 transition-colors duration-500 group-hover:bg-black/25" />
+
+                    <button
+                      type="button"
+                      aria-label={`Open live demo for ${project.title}`}
+                      onClick={() => project.liveUrl && window.open(project.liveUrl, "_blank", "noopener,noreferrer")}
+                      className="absolute right-4 top-4 flex h-12 w-12 -translate-y-2 items-center justify-center rounded-full bg-white text-black opacity-0 shadow-lg transition-all duration-400 ease-out group-hover:translate-y-0 group-hover:opacity-100 sm:right-5 sm:top-5 sm:h-16 sm:w-16 md:h-20 md:w-20 hover:bg-[#ff5c35] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ff5c35] focus-visible:ring-offset-2"
+                    >
+                      <ArrowUpRight size={20} className="md:hidden" />
+                      <ArrowUpRight size={22} className="hidden md:block" />
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  className={`reveal-up ${index % 2 === 0
+                    ? "lg:col-span-4 lg:pl-8"
+                    : "lg:col-span-4 lg:col-start-1 lg:row-start-1"
+                    }`}
+                >
+                  <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.18em] text-black/45">
+                    <span className="font-semibold text-[#ff5c35]">
+                      {project.number}
+                    </span>
+                    <span className="h-px w-6 bg-black/20" />
+                    {project.category}
+                  </div>
+
+                  <h3 className="mt-5 text-4xl font-medium tracking-[-0.05em] sm:text-5xl md:mt-6 md:text-6xl lg:text-7xl">
+                    {project.title}
+                  </h3>
+
+                  <p className="mt-5 max-w-sm text-sm leading-relaxed text-black/55 md:mt-6 md:text-base">
+                    {project.description}
+                  </p>
+
+                  <div className="mt-6 flex flex-wrap gap-2 md:mt-8">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-black/15 px-3.5 py-1.5 text-[10px] uppercase tracking-[0.14em] text-black/55 transition-colors duration-300 group-hover:border-black/25 group-hover:text-black/70 md:px-4 md:py-2"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
       {/* =====================================================
           09. TESTIMONIALS / CLIENT TRUST
       ===================================================== */}
@@ -935,9 +1068,37 @@ export default function HomePage() {
           10. CONTACT / CTA SECTION
       ===================================================== */}
 
-      <section id="contact" ref={contactRef} className="px-0 py-5 md:px-10 md:py-36 lg:px-14 lg:py-36">
-        <ContactOverlay />
+      {/* =====================================================
+          10. CONTACT / CTA SECTION
+      ===================================================== */}
+
+      <section
+        id="contact"
+        ref={contactRef}
+        className="bg-black px-5 py-24 text-white md:px-10 md:py-36 lg:px-14 lg:py-44"
+      >
+        <div className="mx-auto flex max-w-[1600px] flex-col items-center gap-12 text-center">
+          <SectionLabel number="08">Let's talk</SectionLabel>
+
+          <h2 className="max-w-4xl text-[11vw] font-medium leading-[0.95] tracking-[-0.06em] md:text-[6.5vw] lg:text-[5vw]">
+            Got an idea?
+            <br />
+            <span className="text-white/40">Let's make it real.</span>
+          </h2>
+
+          <button
+            onClick={() => setContactOpen(true)}
+            className="group relative mt-4 inline-flex items-center gap-6 rounded-full border border-white/20 py-4 pl-8 pr-4 text-sm font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:border-white/50 md:py-5 md:pl-10 md:pr-5 md:text-base"
+          >
+            Get In Touch
+            <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff5c35] text-white transition-transform duration-300 group-hover:rotate-45 md:h-14 md:w-14">
+              <ArrowUpRight size={20} />
+            </span>
+          </button>
+        </div>
       </section>
+
+      {contactOpen && <ContactOverlay onClose={() => setContactOpen(false)} />}
     </main >
   );
 }

@@ -1,14 +1,20 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useCallback, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitText from "./SplitText";
 import ContactForm from "./ContactForm";
+import { X } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function ContactOverlay() {
+type ContactOverlayProps = {
+    onClose: () => void;
+};
+
+export default function ContactOverlay({ onClose }: ContactOverlayProps) {
     const overlayRef = useRef<HTMLDivElement>(null);
     const topPanel = useRef<HTMLDivElement>(null);
     const bottomPanel = useRef<HTMLDivElement>(null);
@@ -20,11 +26,19 @@ export default function ContactOverlay() {
     const openTl = useRef<gsap.core.Timeline | null>(null);
     const closeTl = useRef<gsap.core.Timeline | null>(null);
 
-    const [isOpen, setIsOpen] = useState(false);
-    const [canOpen, setCanOpen] = useState(true);
     const closeCard = useCallback(() => {
         closeTl.current?.restart();
     }, []);
+
+    // Lock page scroll while the overlay is mounted
+    useEffect(() => {
+        const original = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+        return () => {
+            document.body.style.overflow = original;
+        };
+    }, []);
+
     // Card tilt on mouse move
     useEffect(() => {
         const card = cardRef.current;
@@ -67,26 +81,13 @@ export default function ContactOverlay() {
             gsap.set(bottomPanel.current, { height: "50%" });
             gsap.set(cardRef.current, { yPercent: 120, scale: 0.86, rotate: -6 });
             gsap.set(formRef.current, { opacity: 0, y: 80 });
-            /*             gsap.set(".split-char", { y: 180 });
-             */
+
+            // Plays automatically as soon as the overlay mounts (i.e. on button click)
             const open = gsap.timeline({
                 defaults: { ease: "power4.out" },
-                scrollTrigger: {
-                    trigger: overlayRef.current,
-                    start: "top 65%",
-                    end: "bottom top",
-                    once: true,
-                    onEnter: () => {
-                        setCanOpen(true); // only show button
-
-                    },
-                    toggleActions: "play none none none", // <-- don't reverse automatically
-                },
-                onStart: () => setIsOpen(true),
             });
 
             openTl.current = open;
-
 
             open.to(topText.current?.querySelectorAll(".split-char") || [], {
                 y: 0,
@@ -139,19 +140,16 @@ export default function ContactOverlay() {
                 duration: 0.55,
                 ease: "power4.out",
             }, "-=0.15");
+
             const close = gsap.timeline({
                 paused: true,
                 defaults: {
                     ease: "power4.inOut",
                 },
                 onComplete: () => {
-                    setIsOpen(false);
-                    setCanOpen(true);
-                    // Reset the opening timeline to the beginning
-                    openTl.current?.pause(0).progress(0);
-                    openTl.current?.scrollTrigger?.refresh();
-                    //  openTl.current?.scrollTrigger?.disable();
-                }
+                    // Fully unmount only after the close animation finishes
+                    onClose();
+                },
             });
 
             mm.add(
@@ -166,7 +164,6 @@ export default function ContactOverlay() {
                             y: 80,
                             duration: 0.35,
                         })
-
                         .to(
                             cardRef.current,
                             {
@@ -177,7 +174,6 @@ export default function ContactOverlay() {
                             },
                             "-=0.1"
                         )
-
                         .to(
                             topPanel.current,
                             {
@@ -186,7 +182,6 @@ export default function ContactOverlay() {
                             },
                             "-=0.8"
                         )
-
                         .to(
                             bottomPanel.current,
                             {
@@ -206,35 +201,18 @@ export default function ContactOverlay() {
             openTl.current = null;
             ctx.revert();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    const openContact = useCallback(() => {
-        if (isOpen) return;
-        setCanOpen(false);
 
-        setIsOpen(true);
-        openTl.current?.scrollTrigger?.enable();
-
-        // Reset opening timeline
-        openTl.current?.restart();
-
-        // Reset closing timeline
-        closeTl.current?.pause(0);
-    }, [isOpen]);
-    return (
-        <div ref={overlayRef} className="relative h-screen w-full">
-            {isOpen && (
-                <button
-                    onClick={closeCard}
-                    className="absolute right-5  top-15 z-50 text-sm uppercase tracking-[-1px] text-black transition-opacity duration-300 hover:text-white md:top-20 md:tracking-[5px] lg:top-25"
-                >
-                    Close
-                </button>
-            )}
-
-            {/* TOP PANEL — no overflow-hidden here, SplitText already self-clips its reveal */}
+    const overlay = (
+        <div
+            ref={overlayRef}
+            className="fixed inset-0 z-[999] h-screen w-screen overflow-hidden bg-[#f4f1eb]"
+        >
+            {/* TOP PANEL */}
             <section
                 ref={topPanel}
-                className="absolute top-0 left-0 z-40 flex w-full items-end justify-center "
+                className="absolute top-0 left-0 z-40 flex w-full items-end justify-center"
             >
                 <div ref={topText} className="pb-0">
                     <SplitText
@@ -243,64 +221,26 @@ export default function ContactOverlay() {
                     />
                 </div>
             </section>
-            {canOpen && !isOpen && (
-                <button
-                    onClick={openContact}
-                    className="
-                absolute
-                left-1/2
-                top-1/2
-                z-50
-                -flex
-                -translate-x-1/2
-                -translate-y-1/2
-                items-center
-                gap-2
-                lg:w-70
-                lg:h-20
-                rounded-full
-                bg-[#ff5c35]
 
-                px-4 py-3
-                sm:px-6 sm:py-3.5
-                md:px-8 md:py-4
-                lg:px-10 lg:py-5
-
-                text-[10px]
-                sm:text-sm
-                md:text-md
-                lg:text-2xl
-
-                font-semibold
-                uppercase
-                tracking-[0.15em]
-                sm:tracking-[0.18em]
-                md:tracking-[0.22em]
-
-                text-white
-
-                shadow-[0_10px_30px_rgba(255,92,53,0.35)]
-                transition-all
-                duration-300
-
-                hover:scale-105
-                hover:bg-[#ff6d47]
-                active:scale-95"
-                >
-                    Let's Talk
-                </button>
-            )}
             {/* CARD */}
             <section
                 ref={cardRef}
-                className="absolute z-20 left-1/2 -translate-x-1/2 w-[96vw] max-w-[1500px] top-[8vh] bottom-[8vh] md:top-[11vh] md:bottom-[11vh] overflow-hidden rounded-[18px] md:rounded-[28px]"
+                className="absolute z-20 left-1/2 -translate-x-1/2 w-[96vw] max-w-[1300px] top-[8vh] bottom-[8vh] md:top-[11vh] md:bottom-[11vh] overflow-hidden rounded-[18px] md:rounded-[28px]"
             >
+                <button
+                    onClick={closeCard}
+                    aria-label="Close contact overlay"
+                    className="absolute right-5 top-5 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-black/5 text-black transition-colors duration-300 hover:bg-black hover:text-white md:right-8 md:top-8"
+                >
+                    <X size={18} />
+                </button>
+
                 <div ref={formRef} className="h-full">
                     <ContactForm />
                 </div>
             </section>
 
-            {/* BOTTOM PANEL — same fix */}
+            {/* BOTTOM PANEL */}
             <section
                 ref={bottomPanel}
                 className="absolute bottom-0 left-0 z-40 flex w-full items-start justify-center"
@@ -314,4 +254,6 @@ export default function ContactOverlay() {
             </section>
         </div>
     );
+
+    return typeof document !== "undefined" ? createPortal(overlay, document.body) : null;
 }
