@@ -214,6 +214,8 @@ export default function ContactForm() {
                         placeholder="Tell us about your project..."
                         className={`${inputClass} min-h-[56px] flex-1 resize-none sm:min-h-[100px] md:min-h-0`}
                     />
+
+
                 </div>
             </div>
 

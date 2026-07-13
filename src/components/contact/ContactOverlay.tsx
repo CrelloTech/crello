@@ -207,7 +207,7 @@ export default function ContactOverlay({ onClose }: ContactOverlayProps) {
     const overlay = (
         <div
             ref={overlayRef}
-            className="fixed inset-0 z-[999] h-screen w-screen overflow-hidden bg-[#f4f1eb]"
+            className="fixed inset-0 z-[999] h-screen w-screen overflow-hidden bg-white/25 backdrop-blur-[18px]"
         >
             {/* TOP PANEL */}
             <section
@@ -217,7 +217,7 @@ export default function ContactOverlay({ onClose }: ContactOverlayProps) {
                 <div ref={topText} className="pb-0">
                     <SplitText
                         text="GET IN"
-                        className="font-black uppercase text-black leading-none tracking-[-5px] text-[82px] sm:text-[150px] lg:text-[260px] overflow-hidden"
+                        className="font-black uppercase text-black/100 leading-none tracking-[-5px] text-[82px] sm:text-[150px] lg:text-[260px] overflow-hidden"
                     />
                 </div>
             </section>
@@ -248,7 +248,7 @@ export default function ContactOverlay({ onClose }: ContactOverlayProps) {
                 <div ref={bottomText} className="pt-0">
                     <SplitText
                         text="TOUCH"
-                        className="font-black uppercase text-black leading-none tracking-[-8px] text-[72px] sm:text-[120px] md:text-[180px] lg:text-[260px]"
+                        className="font-black uppercase text-black/100 leading-none tracking-[-8px] text-[72px] sm:text-[120px] md:text-[180px] lg:text-[260px]"
                     />
                 </div>
             </section>

@@ -433,14 +433,8 @@ export default function HomePage() {
           scrub: 1,
         },
       });
-      ScrollTrigger.create({
-        trigger: contactRef.current,
-        start: "top center",
-        once: true,
-        onEnter: () => setContactOpen(true),
-      });
-    }, pageRef);
 
+    }, pageRef);
     return () => ctx.revert();
   }, []);
 
@@ -477,7 +471,7 @@ export default function HomePage() {
           03. ABOUT / COMPANY INTRODUCTION
       ===================================================== */}
 
-      <section
+      < section
         id="about"
         ref={aboutRef}
         className="px-5 py-24 md:px-10 md:py-36 lg:px-14 lg:py-48"
@@ -552,13 +546,13 @@ export default function HomePage() {
             </div>
           </div> */}
         </div>
-      </section>
+      </section >
 
       {/* =====================================================
           04. SERVICES SECTION
       ===================================================== */}
 
-      <section
+      < section
         id="services"
         ref={servicesRef}
         className="px-5 py-24 text-white md:px-10 md:py-36 lg:px-14 lg:py-44"
@@ -628,13 +622,13 @@ export default function HomePage() {
             })}
           </div>
         </div>
-      </section>
+      </section >
 
       {/* =====================================================
           05. WHY CHOOSE US / BENEFITS
       ===================================================== */}
 
-      <section className="px-5 py-24 md:px-10 md:py-36 lg:px-14 lg:py-44">
+      < section className="px-5 py-24 md:px-10 md:py-36 lg:px-14 lg:py-44" >
         <div className="mx-auto max-w-[1600px]">
           <div className="grid gap-12 lg:grid-cols-12">
             <div className="reveal-up lg:col-span-3 text-white">
@@ -696,7 +690,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       {/* =====================================================
     06. TECHNOLOGY / EXPERTISE AREA
@@ -704,7 +698,7 @@ export default function HomePage() {
 
 
 
-      <section className="relative overflow-hidden px-6 py-10 md:px-10 md:py-40">
+      < section className="relative overflow-hidden px-6 py-10 md:px-10 md:py-40" >
         <p
           data-reveal
           className="mb-8 text-xs uppercase tracking-[0.25em] text-[#A3A3A3]"
@@ -779,13 +773,13 @@ export default function HomePage() {
             );
           })}
         </div>
-      </section>
+      </section >
 
       {/* =====================================================
           07. PROCESS / WORKING APPROACH
       ===================================================== */}
 
-      <ProcessSection />
+      < ProcessSection />
 
       {/* =====================================================
           08. PORTFOLIO / PROJECTS SECTION
