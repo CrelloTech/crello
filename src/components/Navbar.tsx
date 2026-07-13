@@ -3,7 +3,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { useState } from "react";
-import logo from "../../public/logo-black.png";
+import logoWhite from "../../public/logo-white.png";
+import logoBlack from "../../public/logo-black.png";
 import Image from "next/image";
 
 
@@ -14,50 +15,9 @@ function scrollToContact() {
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const [darkNavbar, setDarkNavbar] = useState(false);
   return (
     <>
-      {/* <header className="fixed left-0 top-0 z-[100] w-full px-5 py-5 mix-blend-difference md:px-10 md:py-7">
-        <div className="flex items-center justify-between text-white">
-          <a
-            href="#"
-            className="text-xl font-black tracking-[-0.07em] md:text-2xl"
-          >
-            CRELLO<span className="text-[#ff4d00]">●</span>
-          </a>
-
-          <div className="hidden items-center gap-10 text-[11px] font-semibold uppercase tracking-[0.12em] md:flex">
-            <a href="#work" className="transition-opacity hover:opacity-50">
-              Work
-            </a>
-
-            <a href="#about" className="transition-opacity hover:opacity-50">
-              About
-            </a>
-
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToContact();
-              }}
-              className="transition-opacity hover:opacity-50"
-            >
-              Contact
-            </a>
-          </div>
-
-          <button
-            onClick={() => setMenuOpen(true)}
-            className="flex items-center gap-2 text-xs font-bold uppercase"
-          >
-            Menu
-            <Menu size={18} strokeWidth={1.7} />
-          </button>
-        </div>
-      </header>
- */}
-
       <header className="fixed left-0 top-0 z-[100] w-full px-5 py-5 mix-blend-difference md:px-10 md:py-7">
         <div className="flex items-center justify-between text-white">
 
@@ -66,8 +26,23 @@ export default function Navbar() {
             href="#"
             className="text-xl font-black tracking-[-0.07em] md:text-2xl"
           >
-            CRELLO<span className="text-[#ff4d00]">●</span>
-          </a>
+            <div className="relative h-10 w-[140px]">
+              <Image
+                src={logoBlack}
+                alt="Crello"
+                fill
+                className={`absolute object-contain transition-opacity duration-500 ${darkNavbar ? "opacity-100" : "opacity-0"
+                  }`}
+              />
+
+              <Image
+                src={logoWhite}
+                alt="Crello"
+                fill
+                className={`absolute object-contain transition-opacity duration-500 ${darkNavbar ? "opacity-0" : "opacity-100"
+                  }`}
+              />
+            </div>          </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-10 text-[11px] font-semibold uppercase tracking-[0.12em]">
@@ -125,9 +100,8 @@ export default function Navbar() {
           >
             <div className="flex items-center justify-between">
               <div className="text-xl font-black tracking-[-0.07em] md:text-2xl">
-                {/*                 <img src="./logo-black.png" alt="logo" />
- */}             <Image
-                  src={logo}
+                <Image
+                  src={darkNavbar ? logoWhite : logoBlack}
                   alt="Crello Logo"
                   width={140}
                   height={40}

@@ -425,9 +425,6 @@ export default function HomePage() {
       className="overflow-hidden bg-[#f4f1eb] text-[#161616]"
     >
 
-
-
-
       {/* =====================================================
           02. HERO SECTION
       ===================================================== */}
