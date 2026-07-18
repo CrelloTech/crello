@@ -281,11 +281,14 @@ export default function ProcessSection() {
               FIXED TOP CONTENT
           ============================================= */}
           <div className="relative z-30 shrink-0 bg-[#050505]">
-            <p className="mb-7 text-[10px] uppercase tracking-[0.32em] text-[#A3A3A3]">
-              05 / How We Work
-            </p>
 
-            <h2 className="max-w-[350px] text-[clamp(2rem,9vw,3rem)] font-semibold uppercase leading-[0.98] tracking-[-0.04em]">
+            <div className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em]">
+              <span className="text-[#ff5c35]">05</span>
+              <span className="h-px w-8 bg-current opacity-30" />
+              <span>How We Work</span>
+            </div>
+
+            <h2 className="mt-10 max-w-[350px] text-[clamp(2rem,9vw,3rem)] font-semibold uppercase leading-[0.98] tracking-[-0.04em]">
               From first conversation to lasting impact.
             </h2>
 
@@ -343,10 +346,9 @@ export default function ProcessSection() {
                         border
                         transition-all
                         duration-300
-                        ${
-                          isCompleted
-                            ? "border-[#F5F5F0] bg-[#F5F5F0]"
-                            : "border-white/30 bg-[#050505]"
+                        ${isCompleted
+                          ? "border-[#F5F5F0] bg-[#F5F5F0]"
+                          : "border-white/30 bg-[#050505]"
                         }
                       `}
                     />
@@ -361,10 +363,9 @@ export default function ProcessSection() {
                           text-[11px]
                           transition-colors
                           duration-300
-                          ${
-                            isActive
-                              ? "text-white"
-                              : "text-white/35"
+                          ${isActive
+                            ? "text-white"
+                            : "text-white/35"
                           }
                         `}
                       >
@@ -382,10 +383,9 @@ export default function ProcessSection() {
                             tracking-tight
                             transition-all
                             duration-300
-                            ${
-                              isActive
-                                ? "text-[#F5F5F0]"
-                                : "text-white/25"
+                            ${isActive
+                              ? "text-[#F5F5F0]"
+                              : "text-white/25"
                             }
                           `}
                         >
@@ -401,10 +401,9 @@ export default function ProcessSection() {
                             leading-6
                             transition-all
                             duration-300
-                            ${
-                              isActive
-                                ? "text-[#A3A3A3] opacity-100"
-                                : "text-white/20 opacity-60"
+                            ${isActive
+                              ? "text-[#A3A3A3] opacity-100"
+                              : "text-white/20 opacity-60"
                             }
                           `}
                         >
@@ -428,11 +427,14 @@ export default function ProcessSection() {
           ============================================= */}
           <div className="col-span-5 flex h-full items-center">
             <div>
-              <p className="mb-8 text-xs uppercase tracking-[0.25em] text-[#A3A3A3]">
-                05 / How We Work
-              </p>
+         
+              <div className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em]">
+      <span className="text-[#ff5c35]">05</span>
+      <span className="h-px w-8 bg-current opacity-30" />
+      <span>How We Work</span>
+    </div>
 
-              <h2 className="max-w-xl text-[clamp(2.25rem,5vw,4rem)] font-semibold uppercase leading-[1.02] tracking-tight">
+              <h2 className="mt-20 max-w-xl text-[clamp(2.25rem,5vw,4rem)] font-semibold uppercase leading-[1.02] tracking-tight">
                 From first conversation to lasting impact.
               </h2>
 
@@ -494,10 +496,9 @@ export default function ProcessSection() {
                         border
                         transition-all
                         duration-300
-                        ${
-                          isCompleted
-                            ? "border-[#F5F5F0] bg-[#F5F5F0]"
-                            : "border-white/30 bg-[#050505]"
+                        ${isCompleted
+                          ? "border-[#F5F5F0] bg-[#F5F5F0]"
+                          : "border-white/30 bg-[#050505]"
                         }
                       `}
                     />
@@ -511,10 +512,9 @@ export default function ProcessSection() {
                           text-sm
                           transition-colors
                           duration-300
-                          ${
-                            isActive
-                              ? "text-[#F5F5F0]"
-                              : "text-[#A3A3A3]"
+                          ${isActive
+                            ? "text-[#F5F5F0]"
+                            : "text-[#A3A3A3]"
                           }
                         `}
                       >
@@ -531,10 +531,9 @@ export default function ProcessSection() {
                           transition-all
                           duration-300
                           md:text-3xl
-                          ${
-                            isActive
-                              ? "text-[#F5F5F0]"
-                              : "text-white/30"
+                          ${isActive
+                            ? "text-[#F5F5F0]"
+                            : "text-white/30"
                           }
                         `}
                       >
@@ -553,10 +552,9 @@ export default function ProcessSection() {
                         transition-all
                         duration-300
                         md:text-base
-                        ${
-                          isActive
-                            ? "text-[#A3A3A3]"
-                            : "text-white/20"
+                        ${isActive
+                          ? "text-[#A3A3A3]"
+                          : "text-white/20"
                         }
                       `}
                     >

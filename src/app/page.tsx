@@ -152,19 +152,19 @@ const testimonials: Testimonial[] = [
   {
     quote:
       "Crello understood the business challenge before writing a line of code. The result felt considered, fast, and genuinely useful.",
-    name: "Arjun Mehta",
-    role: "Founder, Growth Studio",
+    name: "Govinda Mahanti",
+    role: "Founder",
   },
   {
     quote:
       "The team brought product thinking, engineering discipline and a level of communication that made the entire process easy.",
-    name: "Riya Sharma",
-    role: "Product Lead, Fintech",
+    name: "Sruti Prusty",
+    role: "Product Lead",
   },
   {
     quote:
       "What stood out was their ability to turn a complex workflow into a simple digital experience our team could actually use.",
-    name: "Karan Patel",
+    name: "Simaran",
     role: "Operations Director",
   },
 ];
@@ -195,38 +195,7 @@ const STACK_ROWS = [
     dir: 1,
   },
 ];
-const PROCESS_STEPS = [
-  {
-    n: "01",
-    title: "Discover",
-    desc: "Understand the business, users, challenges, goals, and opportunities.",
-  },
-  {
-    n: "02",
-    title: "Define",
-    desc: "Create a focused strategy, technical direction, and execution roadmap.",
-  },
-  {
-    n: "03",
-    title: "Design",
-    desc: "Build intuitive experiences and clear digital interactions.",
-  },
-  {
-    n: "04",
-    title: "Develop",
-    desc: "Engineer secure, scalable, and maintainable solutions.",
-  },
-  {
-    n: "05",
-    title: "Launch",
-    desc: "Deploy, test, optimize, and prepare for real-world usage.",
-  },
-  {
-    n: "06",
-    title: "Evolve",
-    desc: "Measure, improve, automate, and scale continuously.",
-  },
-];
+
 
 /* =========================================================
    SMALL REUSABLE UI
@@ -447,15 +416,30 @@ export default function HomePage() {
               <SectionLabel number="01">Who we are</SectionLabel>
             </div>
 
-            <div className="lg:col-span-9">
+            <div className="lg:col-span-12">
               <h2 className="reveal-up max-w-6xl text-[11vw] font-medium leading-[0.94] tracking-[-0.065em] md:text-[7vw] lg:text-[5.7vw]">
                 Technology should do more than
                 <span className="text-[#a9a59d]"> simply work.</span>
               </h2>
 
               <div className="mt-16 grid gap-10 md:grid-cols-2 lg:mt-24">
-                <div />
+                {/* Left Side Video */}
+                <div className="reveal-up">
+                  <div className="overflow-hidden rounded-3xl">
+                    <video
+                      className="h-[380px] w-full object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    >
+                      <source src="/vid.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                </div>
 
+                {/* Right Side Content */}
                 <div className="reveal-up">
                   <p className="text-lg leading-relaxed text-black/65 md:text-xl">
                     Crello is a technology-driven software development and
@@ -465,6 +449,9 @@ export default function HomePage() {
                   </p>
 
                   <p className="mt-6 text-lg leading-relaxed text-black/65 md:text-xl">
+                    We combine product thinking, engineering, AI, automation,
+                    and growth strategy to create secure, scalable, and
+                    user-focused solutions.
                     We combine product thinking, engineering, AI, automation,
                     and growth strategy to create secure, scalable, and
                     user-focused solutions.
@@ -484,32 +471,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* <div className="reveal-up mt-24 overflow-hidden rounded-[2rem] md:mt-36">
-            <div className="relative h-[55vh] min-h-[450px] md:h-[75vh]">
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1800&q=85"
-                alt="Crello team collaboration"
-                className="h-full w-full object-cover"
-              />
-
-              <div className="absolute inset-0 bg-black/20" />
-
-              <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between text-white md:bottom-10 md:left-10 md:right-10">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-white/65">
-                    One team
-                  </p>
-                  <p className="mt-2 text-3xl font-medium tracking-[-0.04em] md:text-5xl">
-                    Built around outcomes.
-                  </p>
-                </div>
-
-                <div className="hidden h-20 w-20 items-center justify-center rounded-full bg-[#ff5c35] md:flex">
-                  <Sparkles size={25} />
-                </div>
-              </div>
-            </div>
-          </div> */}
         </div>
       </section >
 
@@ -666,16 +627,14 @@ export default function HomePage() {
       < section
         id="stacks"
         className="relative overflow-hidden px-6 py-10 md:px-10 md:py-40" >
-        <p
-          data-reveal
-          className="mb-8 text-xs uppercase tracking-[0.25em] text-[#A3A3A3]"
-        >
-          04 / Our Stack
-        </p>
+      
+        <div className="reveal-up lg:col-span-3 text-white">
+              <SectionLabel number="04">Our Stack</SectionLabel>
+        </div>
 
         <h2
           data-reveal
-          className="mb-16 max-w-6xl text-[clamp(2.25rem,6vw,4.5rem)] font-semibold uppercase leading-[1.02] tracking-tight text-white/90"
+          className="mt-10 lg:mt-20 mb-16 max-w-6xl text-[clamp(2.25rem,6vw,4.5rem)] font-semibold uppercase leading-[1.02] tracking-tight text-white/90"
         >
           Technology is the tool.
           <br />
@@ -740,12 +699,15 @@ export default function HomePage() {
             );
           })}
         </div>
+
+
+        
       </section >
 
       {/* =====================================================
           07. PROCESS / WORKING APPROACH
       ===================================================== */}
-
+      
       < ProcessSection />
 
 
@@ -755,8 +717,8 @@ export default function HomePage() {
 
       <section
         id="work"
-        ref={workRef}
-        className="px-5 py-24 text-black md:px-10 md:py-36 lg:px-14 lg:py-44"
+        ref={workRef}className="px-5 py-24 text-black md:px-10 md:py-36 lg:px-14 lg:py-44"
+        
       >
         <div className="mx-auto max-w-[1600px]">
           <div className="grid gap-12 lg:grid-cols-12">
@@ -905,10 +867,10 @@ export default function HomePage() {
 
           <div className="reveal-up mt-24 grid grid-cols-2 border-y border-black/15 md:grid-cols-4">
             {[
-              ["25+", "Projects shipped"],
-              ["10+", "Industries explored"],
-              ["98%", "Client satisfaction"],
-              ["24/7", "Systems thinking"],
+              ["3+", "Projects Delivered"],
+              ["1+", "Years Building Software"],
+              ["10+", "Modern Technologies"],
+              ["100%", "Commitment to Quality"],
             ].map(([value, label], index) => (
               <div
                 key={label}
@@ -933,9 +895,7 @@ export default function HomePage() {
           10. CONTACT / CTA SECTION
       ===================================================== */}
 
-      {/* =====================================================
-          10. CONTACT / CTA SECTION
-      ===================================================== */}
+
 
       <section
         id="contact"
@@ -943,7 +903,9 @@ export default function HomePage() {
         className="bg-black px-5 py-24 text-white md:px-10 md:py-36 lg:px-14 lg:py-44"
       >
         <div className="mx-auto flex max-w-[1600px] flex-col items-center gap-12 text-center">
-          <SectionLabel number="08">Let's talk</SectionLabel>
+          <div className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.18em]">
+      <span>How We Work</span>
+    </div>
 
           <h2 className="max-w-4xl text-[11vw] font-medium leading-[0.95] tracking-[-0.06em] md:text-[6.5vw] lg:text-[5vw]">
             Got an idea?
