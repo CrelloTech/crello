@@ -57,7 +57,7 @@ export default function Footer() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/65 transition-all hover:border-[#25D366] hover:bg-[#25D366] hover:text-white"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white/65 transition-all hover:border-[#ff5c35] hover:bg-[#ff5c35] hover:text-white"
                 >
                   <Icon size={17} />
                 </a>
